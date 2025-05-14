@@ -1,0 +1,53 @@
+<div class="user-view-container">
+  <div *ngIf="loading" class="loading-state">
+    <div class="spinner"></div>
+    <p>Loading user information...</p>
+  </div>
+
+  <div *ngIf="error" class="error-state">
+    <p>Sorry, we couldn't load the user information.</p>
+    <button (click)="loadUserData()">Try Again</button>
+  </div>
+
+  <div *ngIf="user && !loading && !error" class="user-card">
+    <div class="user-header">
+      <div class="user-avatar">
+        <img [src]="user.profileImage || 'https://via.placeholder.com/150'" [alt]="user.name">
+      </div>
+      <div class="user-basic-info">
+        <h1 class="user-name">{{ user.name }}</h1>
+        <p class="user-company-role">{{ user.company.role }} at {{ user.company.name }}</p>
+      </div>
+    </div>
+
+    <div class="user-details">
+      <div class="details-section">
+        <h2>Contact Information</h2>
+        <div class="detail-item">
+          <span class="label">Email:</span>
+          <a [href]="'mailto:' + user.email" class="value">{{ user.email }}</a>
+        </div>
+        <div class="detail-item">
+          <span class="label">Phone:</span>
+          <a [href]="'tel:' + user.phone" class="value">{{ user.phone }}</a>
+        </div>
+      </div>
+
+      <div class="details-section">
+        <h2>Address</h2>
+        <div class="detail-item">
+          <span class="label">Street:</span>
+          <span class="value">{{ user.address.street }}</span>
+        </div>
+        <div class="detail-item">
+          <span class="label">City:</span>
+          <span class="value">{{ user.address.city }}</span>
+        </div>
+        <div class="detail-item">
+          <span class="label">Zip Code:</span>
+          <span class="value">{{ user.address.zipcode }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,73 +1,59 @@
-# Torre Verde - Sistema de Gestão de Estoque
+# Webtorreverde
 
-Este projeto implementa um sistema completo de gestão de estoque para a Torre Verde, com interface de usuário moderna e funcionalidades essenciais para o controle de produtos, fornecedores e movimentações de estoque.
+This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.6.
 
-## Funcionalidades
+## Development server
 
-- Cadastro e gerenciamento de produtos
-- Controle de estoque com alertas de nível mínimo
-- Gerenciamento de fornecedores
-- Registro de movimentações de estoque (entradas, saídas e ajustes)
-- Dashboard com visão geral do estoque e métricas importantes
-- Interface responsiva para uso em dispositivos móveis e desktop
-
-## Tecnologias Utilizadas
-
-- React com TypeScript
-- Tailwind CSS para estilização
-- Supabase para backend e banco de dados
-- React Router para navegação
-- React Query para gerenciamento de estado e requisições
-- Lucide React para ícones
-
-## Configuração do Projeto
-
-### Pré-requisitos
-
-- Node.js versão 18 ou superior
-- Conta no Supabase para configuração do banco de dados
-
-### Instalação
-
-1. Clone o repositório
-2. Instale as dependências:
+To start a local development server, run:
 
 ```bash
-npm install
+ng serve
 ```
 
-3. Configure o Supabase:
-   - Crie um novo projeto no Supabase
-   - Configure as tabelas conforme o esquema fornecido em `supabase/migrations`
-   - Copie as credenciais de URL e chave anônima do seu projeto Supabase
+Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
 
-4. Crie um arquivo `.env` na raiz do projeto com o seguinte conteúdo:
+## Code scaffolding
 
-```
-VITE_SUPABASE_URL=sua_url_do_supabase
-VITE_SUPABASE_ANON_KEY=sua_chave_anonima_do_supabase
-```
-
-5. Execute o projeto:
+Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
 
 ```bash
-npm run dev
+ng generate component component-name
 ```
 
-## Estrutura do Banco de Dados
+For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
 
-O sistema utiliza as seguintes tabelas principais:
+```bash
+ng generate --help
+```
 
-- `products`: Armazena informações dos produtos
-- `inventory`: Controla os níveis de estoque dos produtos
-- `suppliers`: Gerencia informações dos fornecedores
-- `inventory_transactions`: Registra movimentações de estoque
+## Building
 
-## Desenvolvimento
+To build the project run:
 
-Este projeto foi desenvolvido com foco em:
+```bash
+ng build
+```
 
-- Interface de usuário intuitiva e responsiva
-- Experiência de usuário fluida com animações sutis
-- Código modular e reutilizável
-- Práticas modernas de React
+This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+
+## Running unit tests
+
+To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+
+```bash
+ng test
+```
+
+## Running end-to-end tests
+
+For end-to-end (e2e) testing, run:
+
+```bash
+ng e2e
+```
+
+Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+
+## Additional Resources
+
+For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.

@@ -1,0 +1,228 @@
+/* Global Styles */
+body {
+  margin: 0;
+  color: #edf3ff;
+  background: #c8c8c8;
+  background: url(https://therichpost.com/wp-content/uploads/2021/03/material-design-4k-2048x1152-1.jpg) fixed;
+  background-size: cover;
+  font: 600 16px/18px 'Open Sans', sans-serif;
+}
+
+/* Box Sizing */
+:after, :before {
+  box-sizing: border-box
+}
+
+/* Clearfix */
+.clearfix:after, .clearfix:before {
+  content: '';
+  display: table
+}
+
+.clearfix:after {
+  clear: both;
+  display: block
+}
+
+/* Links */
+a {
+  color: inherit;
+  text-decoration: none
+}
+
+/* Login Wrap */
+.login-wrap {
+  width: 100%;
+  margin: auto;
+  max-width: 510px;
+  min-height: 510px;
+  position: relative;
+  background: url(https://i.postimg.cc/hP6P2wRk/CARTAZ-TORRE-VERDE-DESENHO.jpg) no-repeat center;
+  background-size: cover;
+  box-shadow: 0 12px 15px 0 rgba(0, 0, 0, .24), 0 17px 50px 0 rgba(0, 0, 0, .19);
+}
+
+/* Login HTML */
+.login-html {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  padding: 90px 70px 50px 70px;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+/* logar e esqueci minha */
+.login-html .sign-in-htm, .login-html .for-pwd-htm {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  -webkit-transform: rotateY(180deg);
+  transform: rotateY(180deg);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transition: all .4s linear;
+  transition: all .4s linear;
+}
+
+/* input de logar e input para password */
+.login-html .sign-in, .login-html .for-pwd, .login-form .group .check {
+  display: none;
+}
+
+/* Tab Styles */
+.login-html .tab, .login-form .group .label, .login-form .group .button {
+  text-transform: uppercase;
+}
+
+/* Tab */
+.login-html .tab {
+  font-size: 22px;
+  margin-right: 15px;
+  padding-bottom: 5px;
+  margin: 0 15px 10px 0;
+  display: inline-block;
+  border-bottom: 2px solid transparent;
+}
+
+/* Active Tab */
+.login-html .sign-in:checked + .tab, .login-html .for-pwd:checked + .tab {
+  color: #fff;
+  border-color: #5e9b51;
+}
+
+/* Login Form */
+.login-form {
+  min-height: 345px;
+  position: relative;
+  -webkit-perspective: 1000px;
+  perspective: 1000px;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+
+/* Login Form Group */
+.login-form .group {
+  margin-bottom: 15px;
+}
+
+/* Login Form Group Label, Input, Button */
+.login-form .group .label, .login-form .group .input, .login-form .group .button {
+  width: 100%;
+  color: #fff;
+  display: block;
+}
+
+/* Login Form Group Input, Button */
+.login-form .group .input, .login-form .group .button {
+  border: none;
+  padding: 15px 20px;
+  border-radius: 25px;
+  background: rgba(255, 255, 255, .1);
+}
+
+/* input da senha */
+.login-form .group input[data-type="password"] {
+  text-security: circle;
+  -webkit-text-security: circle;
+}
+
+/* Login Form Group Label */
+.login-form .group .label {
+  color: #aaa;
+  font-size: 12px;
+}
+
+/* Login Form Group Button */
+.login-form .group .button {
+  background: #0c883b;
+}
+
+/* Login Form Group icone */
+.login-form .group label .icon {
+  width: 15px;
+  height: 15px;
+  border-radius: 2px;
+  position: relative;
+  display: inline-block;
+  background: rgba(255, 255, 255, .1);
+}
+
+/* Login Form Group Label icone antes e depois */
+.login-form .group label .icon:before, .login-form .group label .icon:after {
+  content: '';
+  width: 10px;
+  height: 2px;
+  background: #fff;
+  position: absolute;
+  -webkit-transition: all .2s ease-in-out 0s;
+  transition: all .2s ease-in-out 0s;
+}
+
+/* Login Form Group Label antes do icone */
+.login-form .group label .icon:before {
+  left: 3px;
+  width: 5px;
+  bottom: 6px;
+  -webkit-transform: scale(0) rotate(0);
+  transform: scale(0) rotate(0);
+}
+
+/* Login Form Group label depois do icone */
+.login-form .group label .icon:after {
+  top: 6px;
+  right: 0;
+  -webkit-transform: scale(0) rotate(0);
+  transform: scale(0) rotate(0);
+}
+
+/* Login Form (Grupo) */
+.login-form .group .check:checked + label {
+  color: #fff;
+}
+
+/* Form Check Login (icone) */
+.login-form .group .check:checked + label .icon {
+  background: #57e697;
+}
+
+/* Form Check Login (antes) */
+.login-form .group .check:checked + label .icon:before {
+  -webkit-transform: scale(1) rotate(45deg);
+  transform: scale(1) rotate(45deg);
+}
+
+/* Form Check Login (depois) */
+.login-form .group .check:checked + label .icon:after {
+  -webkit-transform: scale(1) rotate(-45deg);
+  transform: scale(1) rotate(-45deg);
+}
+
+/* Transiçao Sign-in */
+.login-html .sign-in:checked + .tab + .for-pwd + .tab + .login-form .sign-in-htm {
+  -webkit-transform: rotate(0);
+  transform: rotate(0);
+}
+
+.login-html .for-pwd:checked + .tab + .login-form .for-pwd-htm {
+  -webkit-transform: rotate(0);
+  transform: rotate(0);
+}
+
+/* Regra Horizontal */
+.hr {
+  height: 2px;
+  margin: 60px 0 50px 0;
+  background: rgba(255, 255, 255, .2);
+}
+
+/* Footer Link */
+.foot-lnk {
+  text-align: center;
+}
+
+/* Style Foco */
+button:focus, input:focus {
+  outline: none;
+}
