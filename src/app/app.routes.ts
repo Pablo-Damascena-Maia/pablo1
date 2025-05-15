@@ -22,6 +22,10 @@ export const routes: Routes = [
         loadComponent: () => import ('./features/cursos/cursos.component').then(mod => mod.CursosComponent)
       },
       {
+        path: 'estoque',
+        loadComponent: () => import ('./features/estoque/cadastro-produto/cadastro-component').then(mod => mod.CadastroComponent)
+      },
+      {
         path: 'doacoes',
         loadComponent: () => import ('./features/doacoes/doacoes.component').then(mod => mod.DoacoesComponent)
       },
