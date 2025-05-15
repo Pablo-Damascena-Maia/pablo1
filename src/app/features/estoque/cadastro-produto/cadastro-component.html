@@ -1,6 +1,6 @@
 <div class="inventory-container">
   <div class="inventory-card">
-    <h2 class="card-title">Cadastro de Produto</h2>
+    <h2 class="card-title">Cadastro de Produto em Estoque</h2>
 
     <div *ngIf="showSuccessMessage" class="success-message">
       <p>Produto cadastrado com sucesso!</p>
@@ -8,122 +8,127 @@
 
     <form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="product-form">
       <div class="form-grid">
-        <!-- Product Name -->
+        <!-- Product ID -->
         <div class="form-group">
-          <label for="name">Nome do Produto *</label>
+          <label for="produto_id">ID do Produto *</label>
           <input
             type="text"
-            id="name"
-            formControlName="name"
-            [class.invalid]="isFieldInvalid('name')"
-            placeholder="Digite o nome do produto">
-          <div *ngIf="hasError('name', 'required')" class="error-message">
-            Nome é obrigatório
-          </div>
-          <div *ngIf="hasError('name', 'minlength')" class="error-message">
-            Nome deve ter pelo menos 3 caracteres
-          </div>
-        </div>
-
-        <!-- Price -->
-        <div class="form-group">
-          <label for="price">Preço de Venda (R$) *</label>
-          <input
-            type="number"
-            id="price"
-            formControlName="price"
-            [class.invalid]="isFieldInvalid('price')"
-            min="0.01"
-            step="0.01">
-          <div *ngIf="hasError('price', 'required')" class="error-message">
-            Preço é obrigatório
-          </div>
-          <div *ngIf="hasError('price', 'min')" class="error-message">
-            Preço deve ser maior que zero
-          </div>
-        </div>
-
-        <!-- Cost -->
-        <div class="form-group">
-          <label for="cost">Custo (R$) *</label>
-          <input
-            type="number"
-            id="cost"
-            formControlName="cost"
-            [class.invalid]="isFieldInvalid('cost')"
-            min="0"
-            step="0.01">
-          <div *ngIf="hasError('cost', 'required')" class="error-message">
-            Custo é obrigatório
-          </div>
-          <div *ngIf="hasError('cost', 'min')" class="error-message">
-            Custo não pode ser negativo
+            id="produto_id"
+            formControlName="produto_id"
+            [class.invalid]="isFieldInvalid('produto_id')"
+            placeholder="ID do produto">
+          <div *ngIf="hasError('produto_id', 'required')" class="error-message">
+            ID do Produto é obrigatório
           </div>
         </div>
 
         <!-- Quantity -->
         <div class="form-group">
-          <label for="quantity">Quantidade em Estoque *</label>
+          <label for="estoque_quantidade">Quantidade em Estoque *</label>
           <input
             type="number"
-            id="quantity"
-            formControlName="quantity"
-            [class.invalid]="isFieldInvalid('quantity')"
+            id="estoque_quantidade"
+            formControlName="estoque_quantidade"
+            [class.invalid]="isFieldInvalid('estoque_quantidade')"
             min="0">
-          <div *ngIf="hasError('quantity', 'required')" class="error-message">
+          <div *ngIf="hasError('estoque_quantidade', 'required')" class="error-message">
             Quantidade é obrigatória
           </div>
-          <div *ngIf="hasError('quantity', 'min')" class="error-message">
+          <div *ngIf="hasError('estoque_quantidade', 'min')" class="error-message">
             Quantidade não pode ser negativa
           </div>
         </div>
 
         <!-- Minimum Stock -->
         <div class="form-group">
-          <label for="minimumStock">Estoque Mínimo *</label>
+          <label for="estoque_minimo">Estoque Mínimo *</label>
           <input
             type="number"
-            id="minimumStock"
-            formControlName="minimumStock"
-            [class.invalid]="isFieldInvalid('minimumStock')"
+            id="estoque_minimo"
+            formControlName="estoque_minimo"
+            [class.invalid]="isFieldInvalid('estoque_minimo')"
             min="0">
-          <div *ngIf="hasError('minimumStock', 'required')" class="error-message">
+          <div *ngIf="hasError('estoque_minimo', 'required')" class="error-message">
             Estoque mínimo é obrigatório
           </div>
         </div>
 
-        <!-- Supplier -->
+        <!-- Expiration Date -->
         <div class="form-group">
-          <label for="supplier">Fornecedor</label>
+          <label for="estoque_data_validade">Data de Validade</label>
           <input
-            type="text"
-            id="supplier"
-            formControlName="supplier"
-            placeholder="Nome do fornecedor">
+            type="date"
+            id="estoque_data_validade"
+            formControlName="estoque_data_validade">
         </div>
 
-        <!-- Location -->
+        <!-- Type -->
         <div class="form-group">
-          <label for="location">Localização no Estoque</label>
+          <label for="estoque_tipo">Tipo *</label>
+          <input
+            type="number"
+            id="estoque_tipo"
+            formControlName="estoque_tipo"
+            [class.invalid]="isFieldInvalid('estoque_tipo')">
+          <div *ngIf="hasError('estoque_tipo', 'required')" class="error-message">
+            Tipo é obrigatório
+          </div>
+        </div>
+
+        <!-- Status -->
+        <div class="form-group">
+          <label for="estoque_status">Status *</label>
+          <select
+            id="estoque_status"
+            formControlName="estoque_status"
+            [class.invalid]="isFieldInvalid('estoque_status')">
+            <option value="ativo">Ativo</option>
+            <option value="inativo">Inativo</option>
+            <option value="em_manutencao">Em Manutenção</option>
+          </select>
+          <div *ngIf="hasError('estoque_status', 'required')" class="error-message">
+            Status é obrigatório
+          </div>
+        </div>
+
+        <!-- Purchase Price -->
+        <div class="form-group">
+          <label for="estoque_valor_compra">Valor de Compra (R$) *</label>
+          <input
+            type="number"
+            id="estoque_valor_compra"
+            formControlName="estoque_valor_compra"
+            [class.invalid]="isFieldInvalid('estoque_valor_compra')"
+            min="0"
+            step="0.01">
+          <div *ngIf="hasError('estoque_valor_compra', 'required')" class="error-message">
+            Valor de compra é obrigatório
+          </div>
+        </div>
+
+        <!-- Sale Price -->
+        <div class="form-group">
+          <label for="estoque_valor_venda">Valor de Venda (R$) *</label>
+          <input
+            type="number"
+            id="estoque_valor_venda"
+            formControlName="estoque_valor_venda"
+            [class.invalid]="isFieldInvalid('estoque_valor_venda')"
+            min="0"
+            step="0.01">
+          <div *ngIf="hasError('estoque_valor_venda', 'required')" class="error-message">
+            Valor de venda é obrigatório
+          </div>
+        </div>
+
+        <!-- Supplier ID -->
+        <div class="form-group">
+          <label for="fornecedor_id">ID do Fornecedor</label>
           <input
             type="text"
-            id="location"
-            formControlName="location"
-            placeholder="Ex: Prateleira A3">
-        </div>
-      </div>
-
-      <!-- Description -->
-      <div class="form-group full-width">
-        <label for="description">Descrição</label>
-        <textarea
-          id="description"
-          formControlName="description"
-          [class.invalid]="isFieldInvalid('description')"
-          placeholder="Descrição detalhada do produto"
-          rows="3"></textarea>
-        <div *ngIf="hasError('description', 'maxlength')" class="error-message">
-          Descrição não pode exceder 500 caracteres
+            id="fornecedor_id"
+            formControlName="fornecedor_id"
+            placeholder="ID do fornecedor">
         </div>
       </div>
 
