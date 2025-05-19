@@ -5,6 +5,10 @@ import { ProdutoTipo } from '../../shared/enums/produtotipo';
 import { Categoria } from '../../core/models/categoria';
 import { Fabricante } from '../../core/models/fabricante';
 import { ProdutoService } from '../../shared/services/produto.service';
+import { CategoriaService } from '../../shared/services/categoria.service';
+import { FabricanteService } from '../../shared/services/fabricante.service';
+import { catchError, finalize } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-produto',
@@ -19,10 +23,14 @@ export class ProdutoComponent implements OnInit {
   ProdutoTipo = ProdutoTipo;
   categorias: Categoria[] = [];
   fabricantes: Fabricante[] = [];
+  showSuccessMessage = false;
+  errorMessage = '';
 
   constructor(
     private fb: FormBuilder,
-    private produtoService: ProdutoService
+    private produtoService: ProdutoService,
+    private categoriaService: CategoriaService,
+    private fabricanteService: FabricanteService
   ) {}
 
   ngOnInit(): void {
@@ -39,18 +47,30 @@ export class ProdutoComponent implements OnInit {
       categoria_id: ['', Validators.required],
       fabricante_id: ['', Validators.required],
       produto_descricao: ['', Validators.required],
-      produto_status: [1] // Default active status
+      produto_status: [1]
     });
   }
 
   loadCategorias(): void {
-    // TODO: Implement categoria service call
-    this.categorias = [];
+    this.categoriaService.getCategorias()
+      .pipe(
+        catchError(() => {
+          this.errorMessage = 'Erro ao carregar categorias';
+          return of([]);
+        })
+      )
+      .subscribe(categorias => this.categorias = categorias);
   }
 
   loadFabricantes(): void {
-    // TODO: Implement fabricante service call
-    this.fabricantes = [];
+    this.fabricanteService.getFabricantes()
+      .pipe(
+        catchError(() => {
+          this.errorMessage = 'Erro ao carregar fabricantes';
+          return of([]);
+        })
+      )
+      .subscribe(fabricantes => this.fabricantes = fabricantes);
   }
 
   onSubmit(): void {
@@ -65,24 +85,34 @@ export class ProdutoComponent implements OnInit {
     }
 
     this.isSubmitting = true;
-    this.produtoService.createProduto(this.productForm.value).subscribe({
-      next: () => {
-        this.onReset();
-        // TODO: Show success message
-      },
-      error: (error) => {
-        console.error('Error creating product:', error);
-        // TODO: Show error message
-      },
-      complete: () => {
-        this.isSubmitting = false;
-      }
-    });
+    this.errorMessage = '';
+    
+    this.produtoService.createProduto(this.productForm.value)
+      .pipe(
+        catchError(error => {
+          this.errorMessage = 'Erro ao cadastrar produto. Por favor, tente novamente.';
+          console.error('Error creating product:', error);
+          return of(null);
+        }),
+        finalize(() => {
+          this.isSubmitting = false;
+        })
+      )
+      .subscribe(response => {
+        if (response) {
+          this.showSuccessMessage = true;
+          setTimeout(() => {
+            this.showSuccessMessage = false;
+          }, 3000);
+          this.onReset();
+        }
+      });
   }
 
   onReset(): void {
     this.productForm.reset();
     this.initForm();
+    this.errorMessage = '';
   }
 
   hasError(controlName: string, errorName: string): boolean {

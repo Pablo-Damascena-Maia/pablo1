@@ -43,6 +43,24 @@
   background-color: #4A5D23;
 }
 
+.success-message {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 12px;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.error-alert {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 12px;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
 .product-form {
   display: flex;
   flex-direction: column;
@@ -68,7 +86,7 @@ label {
   color: #4A5D23;
 }
 
-input, select {
+input, select, textarea {
   padding: 10px 12px;
   border: 1px solid #B7C68B;
   border-radius: 4px;
@@ -76,10 +94,15 @@ input, select {
   transition: all 0.2s ease;
 }
 
-input:focus, select:focus {
+input:focus, select:focus, textarea:focus {
   outline: none;
   border-color: #4A5D23;
   box-shadow: 0 0 0 2px rgba(74, 93, 35, 0.2);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
 }
 
 .error-message {
@@ -116,6 +139,16 @@ button {
 .btn-primary:disabled {
   background-color: #B7C68B;
   cursor: not-allowed;
+}
+
+.btn-secondary {
+  background-color: #f8f9fa;
+  color: #4A5D23;
+  border: 1px solid #4A5D23;
+}
+
+.btn-secondary:hover {
+  background-color: #e9ecef;
 }
 
 @media (max-width: 768px) {

@@ -5,6 +5,14 @@
     </div>
     
     <h2 class="card-title">Cadastrar Produto</h2>
+
+    <div *ngIf="showSuccessMessage" class="success-message">
+      Produto cadastrado com sucesso!
+    </div>
+
+    <div *ngIf="errorMessage" class="error-alert">
+      {{ errorMessage }}
+    </div>
     
     <form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="product-form">
       <div class="form-grid">
