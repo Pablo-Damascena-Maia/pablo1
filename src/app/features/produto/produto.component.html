@@ -1,1 +1,107 @@
-<p>produto works!</p>
+<div class="product-container">
+  <div class="product-card">
+    <div class="logo-container">
+      <img src="/assets/logo-torre-verde.png" alt="Torre Verde Logo" class="logo">
+    </div>
+    
+    <h2 class="card-title">Cadastrar Produto</h2>
+    
+    <form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="product-form">
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="nome">Nome do Produto *</label>
+          <input 
+            id="nome" 
+            type="text" 
+            formControlName="produto_nome"
+            [class.is-invalid]="isFieldInvalid('produto_nome')">
+          <div class="error-message" *ngIf="hasError('produto_nome', 'required')">
+            Nome é obrigatório
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="identificacao">Identificação *</label>
+          <input 
+            id="identificacao" 
+            type="text" 
+            formControlName="produto_identificacao"
+            [class.is-invalid]="isFieldInvalid('produto_identificacao')">
+          <div class="error-message" *ngIf="hasError('produto_identificacao', 'required')">
+            Identificação é obrigatória
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="tipo">Tipo *</label>
+          <select 
+            id="tipo" 
+            formControlName="produto_tipo"
+            [class.is-invalid]="isFieldInvalid('produto_tipo')">
+            <option value="">Selecione um tipo</option>
+            <option [value]="ProdutoTipo.produto">Produto</option>
+            <option [value]="ProdutoTipo.visitacao">Visitação</option>
+            <option [value]="ProdutoTipo.curso">Curso</option>
+            <option [value]="ProdutoTipo.doacao">Doação</option>
+          </select>
+          <div class="error-message" *ngIf="hasError('produto_tipo', 'required')">
+            Tipo é obrigatório
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="categoria">Categoria *</label>
+          <select 
+            id="categoria" 
+            formControlName="categoria_id"
+            [class.is-invalid]="isFieldInvalid('categoria_id')">
+            <option value="">Selecione uma categoria</option>
+            <option *ngFor="let categoria of categorias" [value]="categoria.categoria_id">
+              {{categoria.categoria_nome}}
+            </option>
+          </select>
+          <div class="error-message" *ngIf="hasError('categoria_id', 'required')">
+            Categoria é obrigatória
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="fabricante">Fabricante *</label>
+          <select 
+            id="fabricante" 
+            formControlName="fabricante_id"
+            [class.is-invalid]="isFieldInvalid('fabricante_id')">
+            <option value="">Selecione um fabricante</option>
+            <option *ngFor="let fabricante of fabricantes" [value]="fabricante.fabricante_id">
+              {{fabricante.fabricante_nome}}
+            </option>
+          </select>
+          <div class="error-message" *ngIf="hasError('fabricante_id', 'required')">
+            Fabricante é obrigatório
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="descricao">Descrição *</label>
+          <textarea 
+            id="descricao" 
+            formControlName="produto_descricao"
+            [class.is-invalid]="isFieldInvalid('produto_descricao')"
+            rows="3"></textarea>
+          <div class="error-message" *ngIf="hasError('produto_descricao', 'required')">
+            Descrição é obrigatória
+          </div>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="btn-secondary" (click)="onReset()">
+          Limpar
+        </button>
+        <button type="submit" class="btn-primary" [disabled]="productForm.invalid || isSubmitting">
+          {{ isSubmitting ? 'Cadastrando...' : 'Cadastrar Produto' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

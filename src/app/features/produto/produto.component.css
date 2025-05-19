@@ -1,0 +1,137 @@
+.product-container {
+  padding: 24px;
+  min-height: 100vh;
+  background-color: #B7C68B;
+}
+
+.product-card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 32px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.logo-container {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.logo {
+  width: 120px;
+  height: 120px;
+}
+
+.card-title {
+  color: #4A5D23;
+  margin: 0 0 24px 0;
+  font-size: 24px;
+  text-align: center;
+  position: relative;
+  padding-bottom: 8px;
+}
+
+.card-title::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 0;
+  height: 3px;
+  width: 60px;
+  background-color: #4A5D23;
+}
+
+.product-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 8px;
+}
+
+label {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 6px;
+  color: #4A5D23;
+}
+
+input, select {
+  padding: 10px 12px;
+  border: 1px solid #B7C68B;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+input:focus, select:focus {
+  outline: none;
+  border-color: #4A5D23;
+  box-shadow: 0 0 0 2px rgba(74, 93, 35, 0.2);
+}
+
+.error-message {
+  color: #dc3545;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+button {
+  padding: 10px 24px;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.btn-primary {
+  background-color: #4A5D23;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #3a4a1c;
+}
+
+.btn-primary:disabled {
+  background-color: #B7C68B;
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .product-card {
+    padding: 20px;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  button {
+    width: 100%;
+  }
+}
