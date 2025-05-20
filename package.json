@@ -1,10 +1,17 @@
 {
   "dependencies": {
     "@angular/core": "^17.0.0",
+    "@angular/common": "^17.0.0",
+    "@angular/platform-browser": "^17.0.0",
+    "@angular/platform-browser-dynamic": "^17.0.0",
+    "@angular/compiler": "^17.0.0",
+    "@angular/cli": "^17.0.0",
     "@supabase/supabase-js": "^2.39.0"
   },
   "devDependencies": {
-    "@types/node": "^20.10.4"
+    "@types/node": "^20.10.4",
+    "@angular/compiler-cli": "^17.0.0",
+    "typescript": "~5.2.0"
   },
   "scripts": {
     "dev": "ng serve"
