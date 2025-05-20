@@ -6,6 +6,6 @@ export const environment = {
   microservicePagamento:  'http://10.136.38.50:7030',
   microserviceProduto:    'http://10.136.38.50:7040',
   microserviceEstoque:    'http://10.136.38.50:7000',
-  SUPABASE_URL: import.meta.env.VITE_SUPABASE_URL,
-  SUPABASE_ANON_KEY: import.meta.env.VITE_SUPABASE_ANON_KEY
+  SUPABASE_URL: process.env['NG_SUPABASE_URL'] || '',
+  SUPABASE_ANON_KEY: process.env['NG_SUPABASE_ANON_KEY'] || ''
 };
