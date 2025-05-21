@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../enviroment';
 
 @Injectable({ providedIn: 'root' })
 export class EstoqueService {
-  private apiUrl = 'http://localhost:3000/estoque'; // Exemplo
+  private apiUrl = environment.microserviceEstoque;
 
   constructor(private http: HttpClient) {}
 
