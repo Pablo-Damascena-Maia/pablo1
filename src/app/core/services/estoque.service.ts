@@ -1,163 +1,58 @@
 import { Injectable } from '@angular/core';
-import { SupabaseService } from './supabase.service';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { environment } from '../../../enviroment';
 import { Estoque, EstoqueMovimentacao, EstoqueVisitacao, EstoqueEvento } from '../models/estoque.interface';
-import { Observable, from } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EstoqueService {
-  constructor(private supabase: SupabaseService) {}
+  private apiUrl = environment.microserviceEstoque;
+
+  constructor(private http: HttpClient) {}
 
   // Estoque methods
   getEstoque(): Observable<Estoque[]> {
-    return from(
-      this.supabase.client
-        .from('estoque')
-        .select('*')
-    ).pipe(
-      map(({ data, error }) => {
-        if (error) throw error;
-        return data as Estoque[];
-      })
-    );
+    return this.http.get<Estoque[]>(`${this.apiUrl}`);
   }
 
   getEstoqueById(id: string): Observable<Estoque> {
-    return from(
-      this.supabase.client
-        .from('estoque')
-        .select('*')
-        .eq('estoque_id', id)
-        .single()
-    ).pipe(
-      map(({ data, error }) => {
-        if (error) throw error;
-        return data as Estoque;
-      })
-    );
+    return this.http.get<Estoque>(`${this.apiUrl}/${id}`);
   }
 
   createEstoque(estoque: Partial<Estoque>): Observable<Estoque> {
-    return from(
-      this.supabase.client
-        .from('estoque')
-        .insert(estoque)
-        .select()
-        .single()
-    ).pipe(
-      map(({ data, error }) => {
-        if (error) throw error;
-        return data as Estoque;
-      })
-    );
+    return this.http.post<Estoque>(`${this.apiUrl}`, estoque);
   }
 
   updateEstoque(id: string, estoque: Partial<Estoque>): Observable<Estoque> {
-    return from(
-      this.supabase.client
-        .from('estoque')
-        .update(estoque)
-        .eq('estoque_id', id)
-        .select()
-        .single()
-    ).pipe(
-      map(({ data, error }) => {
-        if (error) throw error;
-        return data as Estoque;
-      })
-    );
+    return this.http.put<Estoque>(`${this.apiUrl}/${id}`, estoque);
   }
 
   // Movimentação methods
   createMovimentacao(movimentacao: Partial<EstoqueMovimentacao>): Observable<EstoqueMovimentacao> {
-    return from(
-      this.supabase.client
-        .from('estoque_movimentacao')
-        .insert(movimentacao)
-        .select()
-        .single()
-    ).pipe(
-      map(({ data, error }) => {
-        if (error) throw error;
-        return data as EstoqueMovimentacao;
-      })
-    );
+    return this.http.post<EstoqueMovimentacao>(`${this.apiUrl}/movimentacao`, movimentacao);
   }
 
-  getMovimentacoes(estoqueId: string): Observable<EstoqueMovimentacao[]> {
-    return from(
-      this.supabase.client
-        .from('estoque_movimentacao')
-        .select('*')
-        .eq('estoque_id', estoqueId)
-        .order('estoque_movimentacao_data', { ascending: false })
-    ).pipe(
-      map(({ data, error }) => {
-        if (error) throw error;
-        return data as EstoqueMovimentacao[];
-      })
-    );
+  getMovimentacoes(): Observable<EstoqueMovimentacao[]> {
+    return this.http.get<EstoqueMovimentacao[]>(`${this.apiUrl}/movimentacao`);
   }
 
   // Visitação methods
   createVisitacao(visitacao: Partial<EstoqueVisitacao>): Observable<EstoqueVisitacao> {
-    return from(
-      this.supabase.client
-        .from('estoque_visitacao')
-        .insert(visitacao)
-        .select()
-        .single()
-    ).pipe(
-      map(({ data, error }) => {
-        if (error) throw error;
-        return data as EstoqueVisitacao;
-      })
-    );
+    return this.http.post<EstoqueVisitacao>(`${this.apiUrl}/visitacao`, visitacao);
   }
 
   getVisitacoes(): Observable<EstoqueVisitacao[]> {
-    return from(
-      this.supabase.client
-        .from('estoque_visitacao')
-        .select('*')
-        .order('estoque_visitacao_data', { ascending: false })
-    ).pipe(
-      map(({ data, error }) => {
-        if (error) throw error;
-        return data as EstoqueVisitacao[];
-      })
-    );
+    return this.http.get<EstoqueVisitacao[]>(`${this.apiUrl}/visitacao`);
   }
 
   // Evento methods
   createEvento(evento: Partial<EstoqueEvento>): Observable<EstoqueEvento> {
-    return from(
-      this.supabase.client
-        .from('estoque_evento')
-        .insert(evento)
-        .select()
-        .single()
-    ).pipe(
-      map(({ data, error }) => {
-        if (error) throw error;
-        return data as EstoqueEvento;
-      })
-    );
+    return this.http.post<EstoqueEvento>(`${this.apiUrl}/evento`, evento);
   }
 
   getEventos(): Observable<EstoqueEvento[]> {
-    return from(
-      this.supabase.client
-        .from('estoque_evento')
-        .select('*')
-        .order('estoque_evento_data', { ascending: false })
-    ).pipe(
-      map(({ data, error }) => {
-        if (error) throw error;
-        return data as EstoqueEvento[];
-      })
-    );
+    return this.http.get<EstoqueEvento[]>(`${this.apiUrl}/evento`);
   }
 }
