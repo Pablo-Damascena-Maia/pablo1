@@ -8,138 +8,109 @@
 
     <form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="product-form">
       <div class="form-grid">
-        <!-- Product ID -->
+
         <div class="form-group">
-          <label for="produto_id">ID do Produto *</label>
-          <input
-            type="text"
-            id="produto_id"
-            formControlName="produto_id"
-            [class.invalid]="isFieldInvalid('produto_id')"
-            placeholder="ID do produto">
-          <div *ngIf="hasError('produto_id', 'required')" class="error-message">
+          <label for="produtoId">ID do Produto *</label>
+          <input type="text" id="produtoId" formControlName="produtoId" [class.invalid]="isFieldInvalid('produtoId')">
+          <div *ngIf="hasError('produtoId', 'required')" class="error-message">
             ID do Produto é obrigatório
           </div>
         </div>
 
-        <!-- Quantity -->
+
         <div class="form-group">
-          <label for="estoque_quantidade">Quantidade em Estoque *</label>
-          <input
-            type="number"
-            id="estoque_quantidade"
-            formControlName="estoque_quantidade"
-            [class.invalid]="isFieldInvalid('estoque_quantidade')"
-            min="0">
-          <div *ngIf="hasError('estoque_quantidade', 'required')" class="error-message">
+          <label for="quantidade">Quantidade *</label>
+          <input type="number" id="quantidade" formControlName="quantidade" [class.invalid]="isFieldInvalid('quantidade')" min="0">
+          <div *ngIf="hasError('quantidade', 'required')" class="error-message">
             Quantidade é obrigatória
-          </div>
-          <div *ngIf="hasError('estoque_quantidade', 'min')" class="error-message">
-            Quantidade não pode ser negativa
           </div>
         </div>
 
-        <!-- Minimum Stock -->
+
         <div class="form-group">
-          <label for="estoque_minimo">Estoque Mínimo *</label>
-          <input
-            type="number"
-            id="estoque_minimo"
-            formControlName="estoque_minimo"
-            [class.invalid]="isFieldInvalid('estoque_minimo')"
-            min="0">
-          <div *ngIf="hasError('estoque_minimo', 'required')" class="error-message">
+          <label for="minimo">Estoque Mínimo *</label>
+          <input type="number" id="minimo" formControlName="minimo" [class.invalid]="isFieldInvalid('minimo')" min="0">
+          <div *ngIf="hasError('minimo', 'required')" class="error-message">
             Estoque mínimo é obrigatório
           </div>
         </div>
 
-        <!-- Expiration Date -->
         <div class="form-group">
-          <label for="estoque_data_validade">Data de Validade</label>
-          <input
-            type="date"
-            id="estoque_data_validade"
-            formControlName="estoque_data_validade">
+          <label for="dataValidade">Data de Validade *</label>
+          <input type="date" id="dataValidade" formControlName="dataValidade" [class.invalid]="isFieldInvalid('dataValidade')">
+          <div *ngIf="hasError('dataValidade', 'required')" class="error-message">
+            Data de validade é obrigatória
+          </div>
+          <div *ngIf="hasError('dataValidade', 'invalidDate')" class="error-message">
+            A data deve ser maior que hoje
+          </div>
         </div>
 
-        <!-- Type -->
+
         <div class="form-group">
-          <label for="estoque_tipo">Tipo *</label>
-          <input
-            type="number"
-            id="estoque_tipo"
-            formControlName="estoque_tipo"
-            [class.invalid]="isFieldInvalid('estoque_tipo')">
-          <div *ngIf="hasError('estoque_tipo', 'required')" class="error-message">
+          <label for="tipo">Tipo *</label>
+          <select id="tipo" formControlName="tipo" [class.invalid]="isFieldInvalid('tipo')">
+            <option *ngFor="let tipo of produtoTipos" [value]="tipo.value">
+              {{ tipo.label }}
+            </option>
+          </select>
+          <div *ngIf="hasError('tipo', 'required')" class="error-message">
             Tipo é obrigatório
           </div>
         </div>
 
-        <!-- Status -->
+
         <div class="form-group">
-          <label for="estoque_status">Status *</label>
-          <select
-            id="estoque_status"
-            formControlName="estoque_status"
-            [class.invalid]="isFieldInvalid('estoque_status')">
-            <option value="ativo">Ativo</option>
-            <option value="inativo">Inativo</option>
-            <option value="em_manutencao">Em Manutenção</option>
+          <label for="status">Status *</label>
+          <select id="status" formControlName="status" [class.invalid]="isFieldInvalid('status')">
+            <option [value]="1">Ativo</option>
+            <option [value]="0">Inativo</option>
+            <option [value]="2">Em Manutenção</option>
           </select>
-          <div *ngIf="hasError('estoque_status', 'required')" class="error-message">
+          <div *ngIf="hasError('status', 'required')" class="error-message">
             Status é obrigatório
           </div>
         </div>
 
-        <!-- Purchase Price -->
+
         <div class="form-group">
-          <label for="estoque_valor_compra">Valor de Compra (R$) *</label>
-          <input
-            type="number"
-            id="estoque_valor_compra"
-            formControlName="estoque_valor_compra"
-            [class.invalid]="isFieldInvalid('estoque_valor_compra')"
-            min="0"
-            step="0.01">
-          <div *ngIf="hasError('estoque_valor_compra', 'required')" class="error-message">
+          <label for="valorCompra">Valor de Compra (R$) *</label>
+          <input type="number" step="0.01" id="valorCompra" formControlName="valorCompra" [class.invalid]="isFieldInvalid('valorCompra')" min="0">
+          <div *ngIf="hasError('valorCompra', 'required')" class="error-message">
             Valor de compra é obrigatório
           </div>
-        </div>
-
-        <!-- Sale Price -->
-        <div class="form-group">
-          <label for="estoque_valor_venda">Valor de Venda (R$) *</label>
-          <input
-            type="number"
-            id="estoque_valor_venda"
-            formControlName="estoque_valor_venda"
-            [class.invalid]="isFieldInvalid('estoque_valor_venda')"
-            min="0"
-            step="0.01">
-          <div *ngIf="hasError('estoque_valor_venda', 'required')" class="error-message">
-            Valor de venda é obrigatório
+          <div *ngIf="hasError('valorCompra', 'min')" class="error-message">
+            Valor de compra não pode ser negativo
           </div>
         </div>
 
-        <!-- Supplier ID -->
         <div class="form-group">
-          <label for="fornecedor_id">ID do Fornecedor</label>
-          <input
-            type="text"
-            id="fornecedor_id"
-            formControlName="fornecedor_id"
-            placeholder="ID do fornecedor">
+          <label for="valorVenda">Valor de Venda (R$) *</label>
+          <input type="number" step="0.01" id="valorVenda" formControlName="valorVenda" [class.invalid]="isFieldInvalid('valorVenda')" min="0">
+          <div *ngIf="hasError('valorVenda', 'required')" class="error-message">
+            Valor de venda é obrigatório
+          </div>
+          <div *ngIf="hasError('valorVenda', 'min')" class="error-message">
+            Valor de venda não pode ser negativo
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <label for="fornecedorId">ID do Fornecedor *</label>
+          <input type="number" id="fornecedorId" formControlName="fornecedorId" [class.invalid]="isFieldInvalid('fornecedorId')" min="1">
+          <div *ngIf="hasError('fornecedorId', 'required')" class="error-message">
+            ID do fornecedor é obrigatório
+          </div>
+          <div *ngIf="hasError('fornecedorId', 'min')" class="error-message">
+            ID do fornecedor deve ser maior que zero
+          </div>
         </div>
       </div>
 
       <div class="form-actions">
-        <button type="button" class="btn-secondary" (click)="onReset()">
-          Limpar
-        </button>
-        <button
-          type="submit"
-          class="btn-primary"
-          [disabled]="isSubmitting">
+        <button type="button" class="btn-secondary" (click)="onReset()">Limpar</button>
+        <button type="submit" class="btn-primary" [disabled]="isSubmitting">
           {{ isSubmitting ? 'Salvando...' : 'Cadastrar Produto' }}
         </button>
       </div>

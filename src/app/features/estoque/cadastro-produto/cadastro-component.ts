@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { EstoqueService } from '../../../core/services/estoque.service';
+// import { EstoqueService } from '../../../core/services/estoque.service';
 import { Estoque } from '../../../core/models/estoque.interface';
+import { ProdutoTipo } from '../../../shared/enums/produtotipo';
 
 @Component({
   selector: 'app-cadastro-component',
@@ -15,27 +16,39 @@ export class CadastroComponent implements OnInit {
   productForm!: FormGroup;
   isSubmitting = false;
   showSuccessMessage = false;
+  produtoTipos: { value: number; label: string }[] = [];
 
-  constructor(
-    private fb: FormBuilder,
-    private estoqueService: EstoqueService
-  ) { }
+  estoques: Estoque[] = [];
+
+  constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.initForm();
+
+    this.produtoTipos = Object.keys(ProdutoTipo)
+      .filter(key => !isNaN(Number(ProdutoTipo[key as any])))
+      .map(key => ({
+        value: ProdutoTipo[key as keyof typeof ProdutoTipo],
+        label: key.charAt(0).toUpperCase() + key.slice(1)
+      }));
+
+    const stored = localStorage.getItem('estoques');
+    if (stored) {
+      this.estoques = JSON.parse(stored);
+    }
   }
 
   initForm(): void {
     this.productForm = this.fb.group({
-      produto_id: ['', Validators.required],
-      estoque_quantidade: [0, [Validators.required, Validators.min(0)]],
-      estoque_minimo: [0, [Validators.required, Validators.min(0)]],
-      estoque_data_validade: [null],
-      estoque_tipo: [1, Validators.required],
-      estoque_status: ['ativo', Validators.required],
-      estoque_valor_compra: [0, [Validators.required, Validators.min(0)]],
-      estoque_valor_venda: [0, [Validators.required, Validators.min(0)]],
-      fornecedor_id: ['']
+      produtoId: [null, Validators.required],
+      quantidade: [0, [Validators.required, Validators.min(0)]],
+      minimo: [0, [Validators.required, Validators.min(0)]],
+      dataValidade: [null, [Validators.required, this.futureDateValidator()]],
+      tipo: [null, Validators.required],
+      status: [null, Validators.required],
+      valorCompra: [0, [Validators.required, Validators.min(0)]],
+      valorVenda: [0, [Validators.required, Validators.min(0)]],
+      fornecedorId: [null, [Validators.required, Validators.min(1)]]
     });
   }
 
@@ -47,27 +60,22 @@ export class CadastroComponent implements OnInit {
 
     this.isSubmitting = true;
 
-    const estoque: Partial<Estoque> = {
+    const novoEstoque: Estoque = {
       ...this.productForm.value,
       estoque_data_entrada: new Date()
     };
 
-    this.estoqueService.createEstoque(estoque).subscribe({
-      next: () => {
-        this.showSuccessMessage = true;
-        setTimeout(() => {
-          this.showSuccessMessage = false;
-        }, 3000);
-        this.productForm.reset();
-        this.initForm();
-      },
-      error: (error) => {
-        console.error('Error creating estoque:', error);
-      },
-      complete: () => {
-        this.isSubmitting = false;
-      }
-    });
+    this.estoques.push(novoEstoque);
+    localStorage.setItem('estoques', JSON.stringify(this.estoques));
+
+    this.showSuccessMessage = true;
+    setTimeout(() => {
+      this.showSuccessMessage = false;
+    }, 3000);
+
+    this.productForm.reset();
+    this.initForm();
+    this.isSubmitting = false;
   }
 
   onReset(): void {
@@ -92,5 +100,31 @@ export class CadastroComponent implements OnInit {
   isFieldInvalid(controlName: string): boolean {
     const control = this.productForm.get(controlName);
     return !!control && control.touched && control.invalid;
+  }
+
+  private futureDateValidator() {
+    return (control: any) => {
+      const inputDate = new Date(control.value);
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      return inputDate > today ? null : { invalidDate: true };
+    };
+  }
+
+  formatCurrency(controlName: string) {
+    let value = this.productForm.get(controlName)?.value;
+    if (value == null) return;
+
+    value = value.toString().replace(/[^0-9.,]/g, '');
+    value = value.replace(',', '.');
+
+    const num = parseFloat(value);
+    if (isNaN(num)) {
+      this.productForm.get(controlName)?.setValue('');
+      return;
+    }
+
+    const formatted = num.toFixed(2);
+    this.productForm.get(controlName)?.setValue(formatted, { emitEvent: false });
   }
 }

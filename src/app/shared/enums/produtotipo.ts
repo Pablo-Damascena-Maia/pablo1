@@ -1,6 +1,6 @@
 export enum ProdutoTipo {
-  produto,
-  visitacao,
-  curso,
-  doacao
+  produto = 0,
+  visitacao = 1,
+  curso = 2,
+  doacao = 3
 }

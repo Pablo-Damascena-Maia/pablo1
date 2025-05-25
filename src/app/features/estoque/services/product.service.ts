@@ -1,6 +1,9 @@
-import { Product } from './../../../core/models/product.model';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { Product } from './../../../core/models/product.model';
+import { ProdutoTipo } from '../../../shared/enums/produtotipo';
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -9,8 +12,11 @@ export class ProductService {
   private products: Product[] = [];
   private productsSubject = new BehaviorSubject<Product[]>([]);
 
+
+
+
+
   constructor() {
-    // Load initial data if available
     const storedProducts = localStorage.getItem('products');
     if (storedProducts) {
       this.products = JSON.parse(storedProducts);
@@ -23,8 +29,7 @@ export class ProductService {
   }
 
   addProduct(product: Product): void {
-    // Generate a simple ID (in a real app, this would come from the backend)
-    const newProduct = {
+    const newProduct: Product = {
       ...product,
       id: this.generateId(),
       lastUpdated: new Date()
@@ -33,6 +38,8 @@ export class ProductService {
     this.products.push(newProduct);
     this.productsSubject.next([...this.products]);
     this.saveToLocalStorage();
+
+    console.log('Produto cadastrado com sucesso no localStorage!');
   }
 
   updateProduct(product: Product): void {
@@ -44,6 +51,7 @@ export class ProductService {
       };
       this.productsSubject.next([...this.products]);
       this.saveToLocalStorage();
+      console.log('Produto atualizado com sucesso no localStorage!');
     }
   }
 
@@ -51,6 +59,7 @@ export class ProductService {
     this.products = this.products.filter(p => p.id !== id);
     this.productsSubject.next([...this.products]);
     this.saveToLocalStorage();
+    console.log(`Produto com ID ${id} removido com sucesso!`);
   }
 
   private generateId(): number {
