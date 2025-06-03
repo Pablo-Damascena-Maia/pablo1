@@ -36,10 +36,14 @@ export const routes: Routes = [
       {
         path: 'pagamento',
         loadComponent: () => import ('./features/pagamento/pagamento.component').then(mod => mod.PagamentoComponent)
-      } ,
+      },
       {
         path: 'usuario',
         loadComponent: () => import ('./shared/components/user-view/user-view.component').then(mod => mod.UserViewComponent)
+      },
+      {
+        path: 'produtos',
+        loadComponent: () => import ('./features/produto/produto-list/produto-list.component').then(mod => mod.ProdutoListComponent)
       }
     ]
   }
