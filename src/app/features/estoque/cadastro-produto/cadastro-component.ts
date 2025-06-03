@@ -45,10 +45,10 @@ export class CadastroComponent implements OnInit {
       minimo: [0, [Validators.required, Validators.min(0)]],
       dataValidade: [null, [Validators.required, this.futureDateValidator()]],
       tipo: [null, Validators.required],
-      status: [null, Validators.required],
+      status: ['ativo', Validators.required],
       valorCompra: [0, [Validators.required, Validators.min(0)]],
       valorVenda: [0, [Validators.required, Validators.min(0)]],
-      fornecedorId: [null, [Validators.required, Validators.min(1)]]
+      fornecedorId: [null, Validators.required]
     });
   }
 

@@ -63,9 +63,9 @@
         <div class="form-group">
           <label for="status">Status *</label>
           <select id="status" formControlName="status" [class.invalid]="isFieldInvalid('status')">
-            <option [value]="1">Ativo</option>
-            <option [value]="0">Inativo</option>
-            <option [value]="2">Em Manutenção</option>
+            <option value="ativo">Ativo</option>
+            <option value="inativo">Inativo</option>
+            <option value="em_manutencao">Em Manutenção</option>
           </select>
           <div *ngIf="hasError('status', 'required')" class="error-message">
             Status é obrigatório
@@ -98,12 +98,9 @@
 
         <div class="form-group">
           <label for="fornecedorId">ID do Fornecedor *</label>
-          <input type="number" id="fornecedorId" formControlName="fornecedorId" [class.invalid]="isFieldInvalid('fornecedorId')" min="1">
+          <input type="text" id="fornecedorId" formControlName="fornecedorId" [class.invalid]="isFieldInvalid('fornecedorId')">
           <div *ngIf="hasError('fornecedorId', 'required')" class="error-message">
             ID do fornecedor é obrigatório
-          </div>
-          <div *ngIf="hasError('fornecedorId', 'min')" class="error-message">
-            ID do fornecedor deve ser maior que zero
           </div>
         </div>
       </div>
