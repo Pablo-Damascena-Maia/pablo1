@@ -1,9 +1,9 @@
 export const environment = {
   //apiServer: 'http://localhost:8080/',
-  apiGateway:             'http://10.136.38.50:7000',
-  microserviceUsuario:    'http://10.136.38.50:7010',
-  microserviceCompra:     'http://10.136.38.50:7020',
-  microservicePagamento:  'http://10.136.38.50:7030',
-  microserviceProduto:    'http://10.136.38.50:7040',
-  microserviceEstoque:    'http://localhost:8084/api/v1/estoque',
+  apiGateway:             'http://academico3.rj.senac.br/gateway',
+  microserviceUsuario:    'http://academico3.rj.senac.br/usuario',
+  microserviceCarrinho:   'http://academico3.rj.senac.br/carrinho',
+  microservicePagamento:  'http://academico3.rj.senac.br/pagamento',
+  microserviceProduto:    'http://academico3.rj.senac.br/produto',
+  microserviceEstoque:    'http://academico3.rj.senac.br/estoque',
 };
