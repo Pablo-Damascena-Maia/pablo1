@@ -15,7 +15,7 @@ import { ProdutoTipo } from '../../../shared/enums/produtotipo';
   styleUrls: ['./produto-list.component.css']
 })
 export class ProdutoListComponent implements OnInit {
-  displayedColumns: string[] = ['nome', 'identificacao', 'tipo', 'status', 'fornecedor'];
+  displayedColumns: string[] = ['nome', 'id', 'tipo', 'status'];
   produtos: Produto[] = [];
   loading = true;
   error = '';
@@ -28,7 +28,7 @@ export class ProdutoListComponent implements OnInit {
 
   loadProdutos(): void {
     this.loading = true;
-    this.produtoService.getProdutos()
+    this.produtoService.listarProdutos()
       .subscribe({
         next: (data) => {
           this.produtos = data;

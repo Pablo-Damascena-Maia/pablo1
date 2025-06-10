@@ -86,8 +86,8 @@ export class ProdutoComponent implements OnInit {
 
     this.isSubmitting = true;
     this.errorMessage = '';
-    
-    this.produtoService.createProduto(this.productForm.value)
+
+    this.produtoService.criar(this.productForm.value)
       .pipe(
         catchError(error => {
           this.errorMessage = 'Erro ao cadastrar produto. Por favor, tente novamente.';

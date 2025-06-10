@@ -4,6 +4,6 @@ export const environment = {
   microserviceUsuario:    'http://academico3.rj.senac.br/usuario',
   microserviceCarrinho:   'http://academico3.rj.senac.br/carrinho',
   microservicePagamento:  'http://academico3.rj.senac.br/pagamento',
-  microserviceProduto:    '/api/produto-service',
+  microserviceProduto:    'http://academico3.rj.senac.br/produto',
   microserviceEstoque:    'http://academico3.rj.senac.br/estoque',
 };
